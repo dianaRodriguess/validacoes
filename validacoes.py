@@ -56,8 +56,8 @@ def validarNomeRegex(nome):
 def validarNome(nome):
     nome = nome.strip()
     nome = re.sub(r'\s+', ' ', nome)
-    if not all(palavra[0].isupper() for palavra in nome.split()):
-        return False
+    # if not all(palavra[0].isupper() for palavra in nome.split()):
+    #     return False
     nome_sem_espacos = nome.replace(' ', '')
     if not nome_sem_espacos.isalpha():
         return False
@@ -77,10 +77,14 @@ def validarPreco(preco):
     return True
 
 def validarTelefone(tel):
-    # colocar o ddd ou não?
-    regex_tel = r"(\([0-9]{2}\) )([0-9]{4,5}-)([0-9]{4})"
-    if not re.match(regex_tel, tel):
+    tel = ''.join(filter(str.isdigit, tel))
+
+    tam = len(tel)
+    if tam < 11 or tam > 11:
         return False
+    if not tel.isdigit():
+        return False
+
     return True
 
 
@@ -88,3 +92,21 @@ def validarFormaPagamento(dicio, op):
     if op not in dicio:
         return False
     return True
+
+####################
+###### TESTES ######
+
+# if validarNome('diana rodrieus'):
+#     print("eeeeeee")
+# else:
+#     print('aaaaaaa')
+
+
+def checar_repetidos(telefone):
+    # Checa se todos os caracteres da string são iguais
+    return telefone.count(telefone[0]) == len(telefone)
+
+# Exemplo de uso
+tel = '88884888888'
+resultado = checar_repetidos(tel)
+print(f"A string '{tel}' só tem caracteres repetidos? {resultado}")
