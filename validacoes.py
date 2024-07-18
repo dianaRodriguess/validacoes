@@ -4,10 +4,10 @@ from datetime import datetime
 ### FUNÇÕES ###
 
 
-def anoBissexto(ano):
+def ano_bissexto(ano):
     return (ano % 4 == 0) and (ano % 100 != 0) or (ano % 400 == 0)
 
-def validarData(data):
+def validar_data(data):
     ano_atual = datetime.now().year
     regex_data = r"([0-9]{2})/([0-9]{2})/([0-9]{4})"
 
@@ -30,22 +30,58 @@ def validarData(data):
     if data_mes in [4, 6, 9, 11] and data_dia > 30:
         return False
 
-    if anoBissexto(data_ano) and data_mes == 2:
+    if ano_bissexto(data_ano) and data_mes == 2:
         if data_dia > 29:
             return False
-    elif not anoBissexto(data_ano) and data_mes == 2:
+    elif not ano_bissexto(data_ano) and data_mes == 2:
         if data_dia > 28:
             return False
 
     return True
 
-def validarEmail(email):
-    regex_email = r"([a-z0-9\.\-\_]{2,})@([a-z0-9]{2,})(\.[a-z]{2,})(\.[a-z]{2,})?(\.[a-z]{2,})?"
+# ChatGPT
+def validar_cpf(cpf):
+    # Remove caracteres não numéricos do CPF
+    cpf = ''.join(filter(str.isdigit, cpf))
+
+    # Verifica se o CPF tem 11 dígitos e se não é uma sequência repetida
+    if len(cpf) != 11 or cpf == cpf[0] * 11:
+        return False
+
+    # Calcula o primeiro dígito verificador
+    soma = 0
+    for i in range(9):
+        soma += int(cpf[i]) * (10 - i)
+    digito1 = 11 - (soma % 11)
+    if digito1 > 9:
+        digito1 = 0
+
+    # Verifica o primeiro dígito verificador
+    if int(cpf[9]) != digito1:
+        return False
+
+    # Calcula o segundo dígito verificador
+    soma = 0
+    for i in range(10):
+        soma += int(cpf[i]) * (11 - i)
+    digito2 = 11 - (soma % 11)
+    if digito2 > 9:
+        digito2 = 0
+
+    # Verifica o segundo dígito verificador
+    if int(cpf[10]) != digito2:
+        return False
+
+    # Se passar por todas as verificações, o CPF é válido
+    return True
+
+def validar_email(email):
+    regex_email = r"([a-zA-Z0-9\.\-\_]{2,})@([a-zA-Z0-9]{2,})(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?(\.[a-z]{2,})?"
     if not re.match(regex_email, email):
         return False
     return True
 
-def validarNomeRegex(nome):
+def validar_nome_regex(nome):
     regex_nome = r"^[A-Za-zÀ-ÿ]+( [A-Za-zÀ-ÿ]+)*$"
     if not re.match(regex_nome, nome):
         return False
@@ -63,20 +99,20 @@ def validarNome(nome):
         return False
     return nome
 
-def validarQuantidade(qtd):
+def validar_quantidade(qtd):
     qtd = qtd.replace(' ', '')
     if not(qtd.isdigit()):
         return False
     return True
 
-def validarPreco(preco):
+def validar_preco(preco):
     regex_preco = r"([0-9]{1,}(?:\.[0-9]{3})*)[,\.]([0-9]{2})"
     preco = preco.replace(',', '.')
     if not re.match(regex_preco, preco):
         return False
     return True
 
-def validarTelefone(tel):
+def validar_telefone(tel):
     tel = ''.join(filter(str.isdigit, tel))
 
     tam = len(tel)
@@ -88,7 +124,7 @@ def validarTelefone(tel):
     return True
 
 
-def validarFormaPagamento(dicio, op):
+def validar_forma_pag(dicio, op):
     if op not in dicio:
         return False
     return True
