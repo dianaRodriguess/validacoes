@@ -89,7 +89,7 @@ def validar_nome_regex(nome):
         return False
     return True
 
-def validarNome(nome):
+def validar_nome(nome):
     nome_sem_espacos = nome.replace(' ', '')
     if not nome_sem_espacos.isalpha():
         return False
