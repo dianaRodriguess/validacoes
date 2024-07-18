@@ -54,14 +54,10 @@ def validarNomeRegex(nome):
     return True
 
 def validarNome(nome):
-    nome = nome.strip()
-    nome = re.sub(r'\s+', ' ', nome)
-    # if not all(palavra[0].isupper() for palavra in nome.split()):
-    #     return False
     nome_sem_espacos = nome.replace(' ', '')
     if not nome_sem_espacos.isalpha():
         return False
-    return nome
+    return True
 
 def validarQuantidade(qtd):
     qtd = qtd.replace(' ', '')
