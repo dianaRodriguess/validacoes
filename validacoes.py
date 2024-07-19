@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+from pyUFbr import ufbr
 
 ### FUNÇÕES ###
 
@@ -125,6 +126,22 @@ def validar_forma_pag(dicio, op):
         return False
     return True
 
+def validar_cidade(cid):
+    estados = ufbr.list_uf
+    cidades = []
+    for estado in estados:
+        cidades_estado = ufbr.list_cidades(estado)
+        for cidade in cidades_estado:
+            cidades.append(cidade)
+
+    if cid.upper() not in cidades:
+        return False
+    return True
+
+def validar_logradouro(logra):
+    regex = r'[a-zA-Z0-9]'
+    return True
+    
 ####################
 ###### TESTES ######
 
@@ -132,13 +149,3 @@ def validar_forma_pag(dicio, op):
 #     print("eeeeeee")
 # else:
 #     print('aaaaaaa')
-
-
-def checar_repetidos(telefone):
-    # Checa se todos os caracteres da string são iguais
-    return telefone.count(telefone[0]) == len(telefone)
-
-# Exemplo de uso
-tel = '88884888888'
-resultado = checar_repetidos(tel)
-print(f"A string '{tel}' só tem caracteres repetidos? {resultado}")
