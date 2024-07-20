@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from pyUFbr import ufbr
+from pyUFbr.baseuf import ufbr
 
 ### FUNÇÕES ###
 
@@ -110,14 +110,9 @@ def validar_preco(preco):
     return True
 
 def validar_telefone(tel):
-    tel = ''.join(filter(str.isdigit, tel))
-
-    tam = len(tel)
-    if tam < 11 or tam > 11:
+    regex_tel = r'([0-9]{11}\b)'
+    if not re.match(regex_tel, tel):
         return False
-    if not tel.isdigit():
-        return False
-
     return True
 
 
@@ -139,7 +134,12 @@ def validar_cidade(cid):
     return True
 
 def validar_logradouro(logra):
-    regex = r'[a-zA-Z0-9]'
+    regex_logra = r'^[a-zA-Z0-9\-\u00C0-\u00FF ]*$'
+    if logra.isspace():
+        return False
+    if not re.match(regex_logra, logra):
+        print('rew')
+        return False
     return True
     
 ####################
@@ -149,3 +149,8 @@ def validar_logradouro(logra):
 #     print("eeeeeee")
 # else:
 #     print('aaaaaaa')
+
+
+# validar_logradouro("são josé")
+# tel = input('yuio: ')
+# validar_telefone('11111111111')
