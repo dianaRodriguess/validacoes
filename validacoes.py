@@ -116,7 +116,7 @@ def validar_telefone(tel):
     return True
 
 
-def validar_forma_pag(dicio, op):
+def validar_codigo(dicio, op):
     if op not in dicio:
         return False
     return True
