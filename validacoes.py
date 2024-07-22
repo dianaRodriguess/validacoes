@@ -138,7 +138,6 @@ def validar_logradouro(logra):
     if logra.isspace():
         return False
     if not re.match(regex_logra, logra):
-        print('rew')
         return False
     return True
     
