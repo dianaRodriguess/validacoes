@@ -153,3 +153,6 @@ def validar_logradouro(logra):
 # validar_logradouro("são josé")
 # tel = input('yuio: ')
 # validar_telefone('11111111111')
+
+
+TESTESETSETSETSETSEETE
