@@ -126,7 +126,7 @@ def validar_cidade(cid):
     cidades = []
     for estado in estados:
         cidades_estado = ufbr.list_cidades(estado)
-        for cidade in cidades_estado:
+        for cidade in cidades_estado: # type: ignore
             cidades.append(cidade)
 
     if cid.upper() not in cidades:
@@ -153,6 +153,3 @@ def validar_logradouro(logra):
 # validar_logradouro("são josé")
 # tel = input('yuio: ')
 # validar_telefone('11111111111')
-
-
-TESTESETSETSETSETSEETE
