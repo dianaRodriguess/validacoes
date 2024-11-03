@@ -21,17 +21,12 @@ int validateName(char *name, int nchar) {
     // execute regex
     reti = regexec(&regex, name, 1, matches, 0);
     if (!reti){
-        // printf(" :VALID NAME:\n");
-        // printf("Matched string: %.*s\n", matches[0].rm_eo - matches[0].rm_so, name + matches[0].rm_so);
         regfree(&regex);
         return 1;
     } else if (reti == REG_NOMATCH) {
-        // printf(" :INVALID NAME:\n");
-        // printf("Matched string: %.*s\n", matches[0].rm_eo - matches[0].rm_so, name + matches[0].rm_so);
         regfree(&regex);
         return 0;
     } else {
-        // printf(" :Regex match error:\n");
         regfree(&regex);
         return 0;
     }
@@ -52,7 +47,7 @@ int validateName(char *name, int nchar) {
 //     fgets(name, sizeof(name), stdin);
 //     name[strcspn(name, "\n")] = '\0';
     
-//     // printf("%s", name);
+//     printf("%s\n", name);
     
 //     int result = validateName(name, sizeof(name) - 1);
 //     if (result == 1) {
