@@ -1,9 +1,13 @@
+# Ignore all
 *
 
+# Unignore extentions
 !*.*
 
+# Uignore folders
 !*/
 
+# C
 *.o
 
 # Byte-compiled / optimized / DLL files
@@ -11,4 +15,16 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Unignore Makefile
 !Makefile
+
+### VisualStudioCode ###
+.vscode/*
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
