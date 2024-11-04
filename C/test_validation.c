@@ -44,7 +44,16 @@ void test_validateEmail() {
 
 int main() {
     printf("\n-----------------------\nRunning tests...\n");
-    test_validateName();
+    if (test_validateName){
+        printf("\nValidate name tests passed\n");
+    } else {
+        printf("\nValidate name tests failed\n");
+    }
+    if (test_validateEmail){
+        printf("\nValidate email tests passed\n");
+    } else {
+        printf("\nValidate email tests failed\n");
+    }
     printf("\nAll tests passed\n");
     return 0;
 }
