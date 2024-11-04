@@ -64,7 +64,7 @@ int validateEmail(char *email) {
 // ******* MAIN ******
 // *******************
 
-// int main() {
+int main() {
 
 //     // Pedro de Alcântara Francisco Antônio João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon
 //     char name[50];
@@ -81,6 +81,19 @@ int validateEmail(char *email) {
 //     } else if (result == 0) {
 //         printf("Invalid name\n");
 //     }
+    char email[55];
+    printf("Email: ");
+    fgets(email, sizeof(email), stdin);
+    email[strcspn(email, "\n")] = '\0';
     
-//     return 0;
-// }
+    printf("%s\n", email);
+    
+    int result = validateEmail(email);
+    if (result == 1) {
+        printf("Valid email\n");
+    } else if (result == 0) {
+        printf("Invalid email\n");
+    }
+    
+    return 0;
+}
