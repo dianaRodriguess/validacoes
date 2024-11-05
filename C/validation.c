@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <regex.h>
+#include <ctype.h>
 #include "validation.h"
 
 int validateName(char *name, int nchar) {
@@ -60,6 +61,48 @@ int validateEmail(char *email) {
     }
 }
 
+int checkPrice(char *price) {
+    float price_f;
+    price_f = atof(price);
+    if (price_f < 0){
+        return 0;
+    }
+    return 1;
+}
+
+int validatePrice(char *price){
+    regex_t regex;
+    char pattern[] = "([0-9]{1,}(\\.[0-9]{3})*)[,\\.]([0-9]{2})";
+    int reti;
+    regmatch_t matches[1];
+
+    for (int i = 0; price[i] != '\0'; i++) {
+        if (price[i] == ',') {
+            price[i] = '.';
+        }
+    }
+
+    reti = regcomp(&regex, pattern, REG_EXTENDED);
+    if (reti) {
+        printf(" :Could not compile regex:\n");
+        return 0;
+    }
+    if (!checkPrice(price)) {
+        return 0;
+    }
+    reti = regexec(&regex, price, 1, matches, 0);
+    if (!reti){
+        regfree(&regex);
+        return 1;
+    } else if (reti == REG_NOMATCH) {
+        regfree(&regex);
+        return 0;
+    } else {
+        regfree(&regex);
+        return 0;
+    }
+}
+
 // *******************
 // ******* MAIN ******
 // *******************
@@ -81,18 +124,29 @@ int main() {
 //     } else if (result == 0) {
 //         printf("Invalid name\n");
 //     }
-    char email[55];
-    printf("Email: ");
-    fgets(email, sizeof(email), stdin);
-    email[strcspn(email, "\n")] = '\0';
+    // char email[55];
+    // printf("Email: ");
+    // fgets(email, sizeof(email), stdin);
+    // email[strcspn(email, "\n")] = '\0';
     
-    printf("%s\n", email);
+    // printf("%s\n", email);
     
-    int result = validateEmail(email);
+    // int result = validateEmail(email);
+    // if (result == 1) {
+    //     printf("Valid email\n");
+    // } else if (result == 0) {
+    //     printf("Invalid email\n");
+    // }
+
+    char price[10];
+    printf("Price: ");
+    fgets(price, sizeof(price), stdin);
+    price[strcspn(price, "\n")] = '\0';
+    int result = validatePrice(price);
     if (result == 1) {
-        printf("Valid email\n");
+        printf("Valid price\n");
     } else if (result == 0) {
-        printf("Invalid email\n");
+        printf("Invalid price\n");
     }
     
     return 0;
